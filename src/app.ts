@@ -3,6 +3,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { AppDataSource } from "./db";
 import { courseRoutes } from "./routes/courseRoutes";
+import { studentRoutes } from "./routes/studentRoutes";
+import { gradeRoutes } from "./routes/gradeRoutes";
 
 class App {
   public app: Application;
@@ -22,8 +24,11 @@ class App {
   private routes(): void {
     // Import and use your routes here
     const courseRouter = courseRoutes();
+    const studentRouter = studentRoutes();
+    const gradeRouter = gradeRoutes();
     this.app.use("/api/courses", courseRouter);
-    // For example: this.app.use('/api/courses', courseRoutes);
+    this.app.use("/api/students", studentRouter);
+    this.app.use("/api/grades", gradeRouter);
   }
 
   private connectDatabase(): void {
